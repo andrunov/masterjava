@@ -49,4 +49,8 @@ public class MainMatrix {
     private static void out(String format, double ms) {
         System.out.println(String.format(format, ms));
     }
+
+    public static int getThreadNumber() {
+        return THREAD_NUMBER;
+    }
 }

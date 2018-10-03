@@ -18,9 +18,16 @@ public class MailService {
     public GroupResult sendToList(final String template, final Set<String> emails) throws Exception {
         final CompletionService<MailResult> completionService = new ExecutorCompletionService<>(mailExecutor);
 
-        List<Future<MailResult>> futures = emails.stream()
-                .map(email -> completionService.submit(() -> sendToUser(template, email)))
-                .collect(Collectors.toList());
+        List<Future<MailResult>> futures = new ArrayList<>();
+        for (String email : emails) {
+            Future<MailResult> submit = completionService.submit(new Callable<MailResult>() {
+                @Override
+                public MailResult call() throws Exception {
+                    return MailService.this.sendToUser(template, email);
+                }
+            });
+            futures.add(submit);
+        }
 
         return new Callable<GroupResult>() {
             private int success = 0;
