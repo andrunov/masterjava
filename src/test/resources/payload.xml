@@ -20,4 +20,18 @@
         <City id="kiv">Киев</City>
         <City id="mnsk">Минск</City>
     </Cities>
+    <Projects>
+        <Project>
+            <name>Masterjava</name>
+            <description>Complex maven project</description>
+        </Project>
+        <Project>
+            <name>Topjava</name>
+            <description>Classical Spring project</description>
+        </Project>
+        <Project>
+            <name>Data science</name>
+            <description>Machine learning project</description>
+        </Project>
+    </Projects>
 </Payload>
