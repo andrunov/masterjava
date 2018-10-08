@@ -2,15 +2,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://javaops.ru payload.xsd">
     <Users>
-        <User flag="active" city="kiv">
+        <User id="user01" flag="active" city="kiv">
             <email>gmail@gmail.com</email>
             <fullName>Full Name</fullName>
         </User>
-        <User flag="superuser" city="spb">
+        <User id="user02" flag="superuser" city="spb">
             <email>admin@javaops.ru</email>
             <fullName>Admin</fullName>
         </User>
-        <User flag="deleted" city="spb">
+        <User id="user03" flag="deleted" city="spb">
             <email>mail@yandex.ru</email>
             <fullName>Deleted</fullName>
         </User>
@@ -28,22 +28,40 @@
                 <Group>
                     <name>Masterjava 01</name>
                     <type>FINISHED</type>
+                    <users>
+                        <user userId="user02"/>
+                        <user userId="user03"/>
+                    </users>
                 </Group>
                 <Group>
                     <name>Masterjava 02</name>
                     <type>FINISHED</type>
+                    <users>
+                        <user userId="user02"/>
+                    </users>
                 </Group>
                 <Group>
                     <name>Masterjava 03</name>
                     <type>FINISHED</type>
+                    <users>
+                        <user userId="user02"/>
+                    </users>
                 </Group>
                 <Group>
                     <name>Masterjava 04</name>
                     <type>CURRENT</type>
+                    <users>
+                        <user userId="user01"/>
+                        <user userId="user02"/>
+                        <user userId="user03"/>
+                    </users>
                 </Group>
                 <Group>
                     <name>Masterjava 05</name>
                     <type>REGISTERING</type>
+                    <users>
+                        <user userId="user02"/>
+                    </users>
                 </Group>
             </groups>
         </Project>
@@ -54,22 +72,38 @@
                 <Group>
                     <name>Topjava 01</name>
                     <type>FINISHED</type>
+                    <users>
+                        <user userId="user02"/>
+                    </users>
                 </Group>
                 <Group>
                     <name>Topjava 02</name>
                     <type>FINISHED</type>
+                    <users>
+                        <user userId="user02"/>
+                    </users>
                 </Group>
                 <Group>
                     <name>Topjava 03</name>
                     <type>FINISHED</type>
+                    <users>
+                        <user userId="user02"/>
+                    </users>
                 </Group>
                 <Group>
                     <name>Topjava 04</name>
                     <type>CURRENT</type>
+                    <users>
+                        <user userId="user02"/>
+                    </users>
                 </Group>
                 <Group>
                     <name>Topjava 05</name>
                     <type>REGISTERING</type>
+                    <users>
+                        <user userId="user02"/>
+                        <user userId="user03"/>
+                    </users>
                 </Group>
             </groups>
         </Project>
@@ -80,6 +114,9 @@
                 <Group>
                     <name>Data science 01</name>
                     <type>REGISTERING</type>
+                    <users>
+                        <user userId="user02"/>
+                    </users>
                 </Group>
             </groups>
         </Project>
