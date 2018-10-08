@@ -24,14 +24,64 @@
         <Project>
             <name>Masterjava</name>
             <description>Complex maven project</description>
+            <groups>
+                <Group>
+                    <name>Masterjava 01</name>
+                    <type>FINISHED</type>
+                </Group>
+                <Group>
+                    <name>Masterjava 02</name>
+                    <type>FINISHED</type>
+                </Group>
+                <Group>
+                    <name>Masterjava 03</name>
+                    <type>FINISHED</type>
+                </Group>
+                <Group>
+                    <name>Masterjava 04</name>
+                    <type>CURRENT</type>
+                </Group>
+                <Group>
+                    <name>Masterjava 05</name>
+                    <type>REGISTERING</type>
+                </Group>
+            </groups>
         </Project>
         <Project>
             <name>Topjava</name>
             <description>Classical Spring project</description>
+            <groups>
+                <Group>
+                    <name>Topjava 01</name>
+                    <type>FINISHED</type>
+                </Group>
+                <Group>
+                    <name>Topjava 02</name>
+                    <type>FINISHED</type>
+                </Group>
+                <Group>
+                    <name>Topjava 03</name>
+                    <type>FINISHED</type>
+                </Group>
+                <Group>
+                    <name>Topjava 04</name>
+                    <type>CURRENT</type>
+                </Group>
+                <Group>
+                    <name>Topjava 05</name>
+                    <type>REGISTERING</type>
+                </Group>
+            </groups>
         </Project>
         <Project>
             <name>Data science</name>
             <description>Machine learning project</description>
+            <groups>
+                <Group>
+                    <name>Data science 01</name>
+                    <type>REGISTERING</type>
+                </Group>
+            </groups>
         </Project>
     </Projects>
 </Payload>
