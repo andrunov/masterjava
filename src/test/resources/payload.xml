@@ -14,11 +14,61 @@
             <email>mail@yandex.ru</email>
             <fullName>Deleted</fullName>
         </User>
+        <User id="user04" flag="active" city="msk">
+            <email>mail04@yandex.ru</email>
+            <fullName>*** User 04 ***</fullName>
+        </User>
+        <User id="user05" flag="active" city="msk">
+            <email>mail05@yandex.ru</email>
+            <fullName>*** User 05 ***</fullName>
+        </User>
+        <User id="user06" flag="active" city="msk">
+            <email>mail06@yandex.ru</email>
+            <fullName>*** User 06 ***</fullName>
+        </User>
+        <User id="user07" flag="active" city="msk">
+            <email>mail07@yandex.ru</email>
+            <fullName>*** User 07 ***</fullName>
+        </User>
+        <User id="user08" flag="active" city="msk">
+            <email>mail08@yandex.ru</email>
+            <fullName>*** User 08 ***</fullName>
+        </User>
+        <User id="user09" flag="active" city="msk">
+            <email>mail09@yandex.ru</email>
+            <fullName>*** User 09 ***</fullName>
+        </User>
+        <User id="user10" flag="active" city="msk">
+            <email>mail10@yandex.ru</email>
+            <fullName>*** User 10 ***</fullName>
+        </User>
+        <User id="user11" flag="active" city="msk">
+            <email>mail11@yandex.ru</email>
+            <fullName>*** User 11 ***</fullName>
+        </User>
+        <User id="user12" flag="active" city="msk">
+            <email>mail12@yandex.ru</email>
+            <fullName>*** User 12 ***</fullName>
+        </User>
+        <User id="user13" flag="active" city="msk">
+            <email>mail13@yandex.ru</email>
+            <fullName>*** User 13 ***</fullName>
+        </User>
+        <User id="user14" flag="active" city="msk">
+            <email>mail14@yandex.ru</email>
+            <fullName>*** User 14 ***</fullName>
+        </User>
+        <User id="user15" flag="active" city="msk">
+            <email>andrunov@gmail.com</email>
+            <fullName>*** Andro577 ***</fullName>
+        </User>
     </Users>
     <Cities>
         <City id="spb">Санкт-Петербург</City>
         <City id="kiv">Киев</City>
         <City id="mnsk">Минск</City>
+        <City id="msk">Москва</City>
+        <City id="skh">Сухуми</City>
     </Cities>
     <Projects>
         <Project>
@@ -30,7 +80,8 @@
                     <type>FINISHED</type>
                     <users>
                         <user userId="user02"/>
-                        <user userId="user03"/>
+                        <user userId="user04"/>
+                        <user userId="user05"/>
                     </users>
                 </Group>
                 <Group>
@@ -38,6 +89,8 @@
                     <type>FINISHED</type>
                     <users>
                         <user userId="user02"/>
+                        <user userId="user04"/>
+                        <user userId="user05"/>
                     </users>
                 </Group>
                 <Group>
@@ -45,6 +98,8 @@
                     <type>FINISHED</type>
                     <users>
                         <user userId="user02"/>
+                        <user userId="user04"/>
+                        <user userId="user05"/>
                     </users>
                 </Group>
                 <Group>
@@ -54,6 +109,11 @@
                         <user userId="user01"/>
                         <user userId="user02"/>
                         <user userId="user03"/>
+                        <user userId="user06"/>
+                        <user userId="user07"/>
+                        <user userId="user08"/>
+                        <user userId="user09"/>
+                        <user userId="user10"/>
                     </users>
                 </Group>
                 <Group>
@@ -61,6 +121,12 @@
                     <type>REGISTERING</type>
                     <users>
                         <user userId="user02"/>
+                        <user userId="user10"/>
+                        <user userId="user11"/>
+                        <user userId="user12"/>
+                        <user userId="user13"/>
+                        <user userId="user14"/>
+                        <user userId="user15"/>
                     </users>
                 </Group>
             </groups>
@@ -74,6 +140,8 @@
                     <type>FINISHED</type>
                     <users>
                         <user userId="user02"/>
+                        <user userId="user04"/>
+                        <user userId="user05"/>
                     </users>
                 </Group>
                 <Group>
@@ -81,6 +149,8 @@
                     <type>FINISHED</type>
                     <users>
                         <user userId="user02"/>
+                        <user userId="user04"/>
+                        <user userId="user05"/>
                     </users>
                 </Group>
                 <Group>
@@ -88,6 +158,8 @@
                     <type>FINISHED</type>
                     <users>
                         <user userId="user02"/>
+                        <user userId="user04"/>
+                        <user userId="user05"/>
                     </users>
                 </Group>
                 <Group>
@@ -95,6 +167,11 @@
                     <type>CURRENT</type>
                     <users>
                         <user userId="user02"/>
+                        <user userId="user06"/>
+                        <user userId="user07"/>
+                        <user userId="user08"/>
+                        <user userId="user09"/>
+                        <user userId="user10"/>
                     </users>
                 </Group>
                 <Group>
@@ -102,7 +179,12 @@
                     <type>REGISTERING</type>
                     <users>
                         <user userId="user02"/>
-                        <user userId="user03"/>
+                        <user userId="user10"/>
+                        <user userId="user11"/>
+                        <user userId="user12"/>
+                        <user userId="user13"/>
+                        <user userId="user14"/>
+                        <user userId="user15"/>
                     </users>
                 </Group>
             </groups>
@@ -116,6 +198,12 @@
                     <type>REGISTERING</type>
                     <users>
                         <user userId="user02"/>
+                        <user userId="user10"/>
+                        <user userId="user11"/>
+                        <user userId="user12"/>
+                        <user userId="user13"/>
+                        <user userId="user14"/>
+                        <user userId="user15"/>
                     </users>
                 </Group>
             </groups>
