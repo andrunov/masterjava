@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.Objects;
 
 
 /**
@@ -43,7 +44,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "fullName"
 })
 @XmlRootElement(name = "User", namespace = "http://javaops.ru")
-public class User {
+public class User implements Comparable<User> {
 
     @XmlElement(namespace = "http://javaops.ru", required = true)
     protected String email;
@@ -181,4 +182,33 @@ public class User {
         this.city = value;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                ", id='" + id + '\'' +
+                "email='" + email + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", city=" + ((CityType)city).getValue() +
+                ", activity=" + flag +
+                '}';
+    }
+
+
+    @Override
+    public int compareTo(User o) {
+        return this.id.compareTo(o.id);
+    }
 }

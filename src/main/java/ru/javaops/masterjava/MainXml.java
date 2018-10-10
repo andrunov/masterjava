@@ -9,12 +9,12 @@ import ru.javaops.masterjava.xml.util.Schemas;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MainXml {
     public static void main(String[] args) {
-        showProjectParticipate("Masterjava");
-
+        showProjectParticipate("Data science");
     }
 
     private static void showProjectParticipate (String projectName) {
@@ -37,12 +37,19 @@ public class MainXml {
                 for (Group group : project.getGroups().getGroup()){
                     for (Group.Users.User user : group.getUsers().getUser()){
                        // if (users.contains(user.getUserId()))
-                        System.out.println(((User) user.getUserId()).getFullName());
+                        User currentUser = (User) user.getUserId();
+                        if (!users.contains(currentUser)) {
+                            users.add(currentUser);
+                        }
                     }
-
-
                 }
             }
+        }
+
+        Collections.sort(users);
+
+        for (User user : users) {
+            System.out.println(user);
         }
 
     }
