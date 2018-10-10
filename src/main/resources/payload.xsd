@@ -96,7 +96,7 @@
                         <xs:choice minOccurs="0" maxOccurs="unbounded">
                             <xs:element name="user">
                                 <xs:complexType>
-                                    <xs:attribute type="xs:IDREF" name="userId"/>
+                                    <xs:attribute type="xs:IDREF" name="user"/>
                                 </xs:complexType>
                             </xs:element>
                         </xs:choice>

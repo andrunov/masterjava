@@ -229,7 +229,7 @@ public class Group {
         @XmlType(name = "")
         public static class User {
 
-            @XmlAttribute(name = "userId")
+            @XmlAttribute(name = "user")
             @XmlIDREF
             @XmlSchemaType(name = "IDREF")
             protected Object userId;

@@ -79,54 +79,54 @@
                     <name>Masterjava 01</name>
                     <type>FINISHED</type>
                     <users>
-                        <user userId="user02"/>
-                        <user userId="user04"/>
-                        <user userId="user05"/>
+                        <user user="user02"/>
+                        <user user="user04"/>
+                        <user user="user05"/>
                     </users>
                 </Group>
                 <Group>
                     <name>Masterjava 02</name>
                     <type>FINISHED</type>
                     <users>
-                        <user userId="user02"/>
-                        <user userId="user04"/>
-                        <user userId="user05"/>
+                        <user user="user02"/>
+                        <user user="user04"/>
+                        <user user="user05"/>
                     </users>
                 </Group>
                 <Group>
                     <name>Masterjava 03</name>
                     <type>FINISHED</type>
                     <users>
-                        <user userId="user02"/>
-                        <user userId="user04"/>
-                        <user userId="user05"/>
+                        <user user="user02"/>
+                        <user user="user04"/>
+                        <user user="user05"/>
                     </users>
                 </Group>
                 <Group>
                     <name>Masterjava 04</name>
                     <type>CURRENT</type>
                     <users>
-                        <user userId="user01"/>
-                        <user userId="user02"/>
-                        <user userId="user03"/>
-                        <user userId="user06"/>
-                        <user userId="user07"/>
-                        <user userId="user08"/>
-                        <user userId="user09"/>
-                        <user userId="user10"/>
+                        <user user="user01"/>
+                        <user user="user02"/>
+                        <user user="user03"/>
+                        <user user="user06"/>
+                        <user user="user07"/>
+                        <user user="user08"/>
+                        <user user="user09"/>
+                        <user user="user10"/>
                     </users>
                 </Group>
                 <Group>
                     <name>Masterjava 05</name>
                     <type>REGISTERING</type>
                     <users>
-                        <user userId="user02"/>
-                        <user userId="user10"/>
-                        <user userId="user11"/>
-                        <user userId="user12"/>
-                        <user userId="user13"/>
-                        <user userId="user14"/>
-                        <user userId="user15"/>
+                        <user user="user02"/>
+                        <user user="user10"/>
+                        <user user="user11"/>
+                        <user user="user12"/>
+                        <user user="user13"/>
+                        <user user="user14"/>
+                        <user user="user15"/>
                     </users>
                 </Group>
             </groups>
@@ -139,52 +139,52 @@
                     <name>Topjava 01</name>
                     <type>FINISHED</type>
                     <users>
-                        <user userId="user02"/>
-                        <user userId="user04"/>
-                        <user userId="user05"/>
+                        <user user="user02"/>
+                        <user user="user04"/>
+                        <user user="user05"/>
                     </users>
                 </Group>
                 <Group>
                     <name>Topjava 02</name>
                     <type>FINISHED</type>
                     <users>
-                        <user userId="user02"/>
-                        <user userId="user04"/>
-                        <user userId="user05"/>
+                        <user user="user02"/>
+                        <user user="user04"/>
+                        <user user="user05"/>
                     </users>
                 </Group>
                 <Group>
                     <name>Topjava 03</name>
                     <type>FINISHED</type>
                     <users>
-                        <user userId="user02"/>
-                        <user userId="user04"/>
-                        <user userId="user05"/>
+                        <user user="user02"/>
+                        <user user="user04"/>
+                        <user user="user05"/>
                     </users>
                 </Group>
                 <Group>
                     <name>Topjava 04</name>
                     <type>CURRENT</type>
                     <users>
-                        <user userId="user02"/>
-                        <user userId="user06"/>
-                        <user userId="user07"/>
-                        <user userId="user08"/>
-                        <user userId="user09"/>
-                        <user userId="user10"/>
+                        <user user="user02"/>
+                        <user user="user06"/>
+                        <user user="user07"/>
+                        <user user="user08"/>
+                        <user user="user09"/>
+                        <user user="user10"/>
                     </users>
                 </Group>
                 <Group>
                     <name>Topjava 05</name>
                     <type>REGISTERING</type>
                     <users>
-                        <user userId="user02"/>
-                        <user userId="user10"/>
-                        <user userId="user11"/>
-                        <user userId="user12"/>
-                        <user userId="user13"/>
-                        <user userId="user14"/>
-                        <user userId="user15"/>
+                        <user user="user02"/>
+                        <user user="user10"/>
+                        <user user="user11"/>
+                        <user user="user12"/>
+                        <user user="user13"/>
+                        <user user="user14"/>
+                        <user user="user15"/>
                     </users>
                 </Group>
             </groups>
@@ -197,13 +197,13 @@
                     <name>Data science 01</name>
                     <type>REGISTERING</type>
                     <users>
-                        <user userId="user02"/>
-                        <user userId="user10"/>
-                        <user userId="user11"/>
-                        <user userId="user12"/>
-                        <user userId="user13"/>
-                        <user userId="user14"/>
-                        <user userId="user15"/>
+                        <user user="user02"/>
+                        <user user="user10"/>
+                        <user user="user11"/>
+                        <user user="user12"/>
+                        <user user="user13"/>
+                        <user user="user14"/>
+                        <user user="user15"/>
                     </users>
                 </Group>
             </groups>
