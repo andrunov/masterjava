@@ -25,26 +25,8 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="type" type="{http://javaops.ru}groupType"/>
- *         &lt;element name="users">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;choice maxOccurs="unbounded" minOccurs="0">
- *                   &lt;element name="user">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;attribute name="userId" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                 &lt;/choice>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
  *       &lt;/sequence>
+ *       &lt;attribute name="users" type="{http://www.w3.org/2001/XMLSchema}IDREFS" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -55,8 +37,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "name",
-    "type",
-    "users"
+    "type"
 })
 @XmlRootElement(name = "Group", namespace = "http://javaops.ru")
 public class Group {
@@ -66,8 +47,10 @@ public class Group {
     @XmlElement(namespace = "http://javaops.ru", required = true)
     @XmlSchemaType(name = "string")
     protected GroupType type;
-    @XmlElement(namespace = "http://javaops.ru", required = true)
-    protected Group.Users users;
+    @XmlAttribute(name = "users")
+    @XmlIDREF
+    @XmlSchemaType(name = "IDREFS")
+    protected List<Object> users;
 
     /**
      * Gets the value of the name property.
@@ -120,146 +103,30 @@ public class Group {
     /**
      * Gets the value of the users property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Group.Users }
-     *     
-     */
-    public Group.Users getUsers() {
-        return users;
-    }
-
-    /**
-     * Sets the value of the users property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the users property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Group.Users }
-     *     
-     */
-    public void setUsers(Group.Users value) {
-        this.users = value;
-    }
-
-
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     * <p>
+     * For example, to add a new item, do as follows:
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;choice maxOccurs="unbounded" minOccurs="0">
-     *         &lt;element name="user">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;attribute name="userId" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *       &lt;/choice>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     *    getUsers().add(newItem);
      * </pre>
      * 
      * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Object }
+     * 
+     * 
      */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "user"
-    })
-    public static class Users {
-
-        @XmlElement(namespace = "http://javaops.ru")
-        protected List<Group.Users.User> user;
-
-        /**
-         * Gets the value of the user property.
-         * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the user property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getUser().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link Group.Users.User }
-         * 
-         * 
-         */
-        public List<Group.Users.User> getUser() {
-            if (user == null) {
-                user = new ArrayList<Group.Users.User>();
-            }
-            return this.user;
+    public List<Object> getUsers() {
+        if (users == null) {
+            users = new ArrayList<Object>();
         }
-
-
-        /**
-         * <p>Java class for anonymous complex type.
-         * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
-         * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;attribute name="userId" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
-         * </pre>
-         * 
-         * 
-         */
-        @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "")
-        public static class User {
-
-            @XmlAttribute(name = "user")
-            @XmlIDREF
-            @XmlSchemaType(name = "IDREF")
-            protected Object userId;
-
-            /**
-             * Gets the value of the userId property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link Object }
-             *     
-             */
-            public Object getUserId() {
-                return userId;
-            }
-
-            /**
-             * Sets the value of the userId property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link Object }
-             *     
-             */
-            public void setUserId(Object value) {
-                this.userId = value;
-            }
-
-        }
-
+        return this.users;
     }
 
 }

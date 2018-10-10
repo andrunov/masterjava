@@ -42,27 +42,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Group }
-     * 
-     */
-    public Group createGroup() {
-        return new Group();
-    }
-
-    /**
      * Create an instance of {@link Payload }
      * 
      */
     public Payload createPayload() {
         return new Payload();
-    }
-
-    /**
-     * Create an instance of {@link Group.Users }
-     * 
-     */
-    public Group.Users createGroupUsers() {
-        return new Group.Users();
     }
 
     /**
@@ -74,11 +58,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ru.javaops.masterjava.xml.schema.User }
+     * Create an instance of {@link Group }
      * 
      */
-    public ru.javaops.masterjava.xml.schema.User createUser() {
-        return new ru.javaops.masterjava.xml.schema.User();
+    public Group createGroup() {
+        return new Group();
+    }
+
+    /**
+     * Create an instance of {@link User }
+     * 
+     */
+    public User createUser() {
+        return new User();
     }
 
     /**
@@ -111,14 +103,6 @@ public class ObjectFactory {
      */
     public CityType createCityType() {
         return new CityType();
-    }
-
-    /**
-     * Create an instance of {@link Group.Users.User }
-     * 
-     */
-    public Group.Users.User createGroupUsersUser() {
-        return new Group.Users.User();
     }
 
     /**

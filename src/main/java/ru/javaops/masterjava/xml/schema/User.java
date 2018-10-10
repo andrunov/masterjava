@@ -201,11 +201,10 @@ public class User implements Comparable<User> {
                 ", id='" + id + '\'' +
                 "email='" + email + '\'' +
                 ", fullName='" + fullName + '\'' +
-                ", city=" + ((CityType)city).getValue() +
                 ", activity=" + flag +
+                ", city=" + ((CityType)city).getValue() +
                 '}';
     }
-
 
     @Override
     public int compareTo(User o) {

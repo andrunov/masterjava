@@ -91,18 +91,8 @@
             <xs:sequence>
                 <xs:element type="xs:string" name="name"/>
                 <xs:element type="groupType" name="type"/>
-                <xs:element name="users">
-                    <xs:complexType>
-                        <xs:choice minOccurs="0" maxOccurs="unbounded">
-                            <xs:element name="user">
-                                <xs:complexType>
-                                    <xs:attribute type="xs:IDREF" name="userId"/>
-                                </xs:complexType>
-                            </xs:element>
-                        </xs:choice>
-                    </xs:complexType>
-                </xs:element>
             </xs:sequence>
+            <xs:attribute name="users" type="xs:IDREFS"/>
         </xs:complexType>
     </xs:element>
 </xs:schema>

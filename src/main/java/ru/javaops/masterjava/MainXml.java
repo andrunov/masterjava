@@ -35,9 +35,9 @@ public class MainXml {
         for (Project project : payload.getProjects().getProject()) {
             if (project.getName().equals(projectName)) {
                 for (Group group : project.getGroups().getGroup()){
-                    for (Group.Users.User user : group.getUsers().getUser()){
+                    for (Object obj : group.getUsers()){
                        // if (users.contains(user.getUserId()))
-                        User currentUser = (User) user.getUserId();
+                        User currentUser = (User) obj;
                         if (!users.contains(currentUser)) {
                             users.add(currentUser);
                         }

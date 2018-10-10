@@ -75,59 +75,28 @@
             <name>Masterjava</name>
             <description>Complex maven project</description>
             <groups>
-                <Group>
+                <Group users="user02 user04 user05">
                     <name>Masterjava 01</name>
                     <type>FINISHED</type>
-                    <users>
-                        <user user="user02"/>
-                        <user user="user04"/>
-                        <user user="user05"/>
-                    </users>
                 </Group>
-                <Group>
+                <Group users="user02 user04 user05">
                     <name>Masterjava 02</name>
                     <type>FINISHED</type>
-                    <users>
-                        <user user="user02"/>
-                        <user user="user04"/>
-                        <user user="user05"/>
-                    </users>
                 </Group>
-                <Group>
+                <Group users="user02 user04 user05">
                     <name>Masterjava 03</name>
                     <type>FINISHED</type>
-                    <users>
-                        <user user="user02"/>
-                        <user user="user04"/>
-                        <user user="user05"/>
-                    </users>
+
                 </Group>
-                <Group>
+                <Group users="user01 user02 user03 user06 user07 user08 user09 user10">
                     <name>Masterjava 04</name>
                     <type>CURRENT</type>
-                    <users>
-                        <user user="user01"/>
-                        <user user="user02"/>
-                        <user user="user03"/>
-                        <user user="user06"/>
-                        <user user="user07"/>
-                        <user user="user08"/>
-                        <user user="user09"/>
-                        <user user="user10"/>
-                    </users>
+
                 </Group>
-                <Group>
+                <Group users="user02 user10 user11 user12 user13 user14 user15">
                     <name>Masterjava 05</name>
                     <type>REGISTERING</type>
-                    <users>
-                        <user user="user02"/>
-                        <user user="user10"/>
-                        <user user="user11"/>
-                        <user user="user12"/>
-                        <user user="user13"/>
-                        <user user="user14"/>
-                        <user user="user15"/>
-                    </users>
+
                 </Group>
             </groups>
         </Project>
@@ -135,57 +104,30 @@
             <name>Topjava</name>
             <description>Classical Spring project</description>
             <groups>
-                <Group>
+                <Group users="user02 user04 user05">
                     <name>Topjava 01</name>
                     <type>FINISHED</type>
-                    <users>
-                        <user user="user02"/>
-                        <user user="user04"/>
-                        <user user="user05"/>
-                    </users>
+
                 </Group>
-                <Group>
+                <Group users="user02 user04 user05">
                     <name>Topjava 02</name>
                     <type>FINISHED</type>
-                    <users>
-                        <user user="user02"/>
-                        <user user="user04"/>
-                        <user user="user05"/>
-                    </users>
+
                 </Group>
-                <Group>
+                <Group users="user02 user04 user05">
                     <name>Topjava 03</name>
                     <type>FINISHED</type>
-                    <users>
-                        <user user="user02"/>
-                        <user user="user04"/>
-                        <user user="user05"/>
-                    </users>
+
                 </Group>
-                <Group>
+                <Group users="user02 user06 user07 user08 user09 user10">
                     <name>Topjava 04</name>
                     <type>CURRENT</type>
-                    <users>
-                        <user user="user02"/>
-                        <user user="user06"/>
-                        <user user="user07"/>
-                        <user user="user08"/>
-                        <user user="user09"/>
-                        <user user="user10"/>
-                    </users>
+
                 </Group>
-                <Group>
+                <Group  users="user02 user10 user11 user12 user13 user14 user15">
                     <name>Topjava 05</name>
                     <type>REGISTERING</type>
-                    <users>
-                        <user user="user02"/>
-                        <user user="user10"/>
-                        <user user="user11"/>
-                        <user user="user12"/>
-                        <user user="user13"/>
-                        <user user="user14"/>
-                        <user user="user15"/>
-                    </users>
+
                 </Group>
             </groups>
         </Project>
@@ -193,18 +135,10 @@
             <name>Data science</name>
             <description>Machine learning project</description>
             <groups>
-                <Group>
+                <Group  users="user02 user10 user11 user12 user13 user14 user15">
                     <name>Data science 01</name>
                     <type>REGISTERING</type>
-                    <users>
-                        <user user="user02"/>
-                        <user user="user10"/>
-                        <user user="user11"/>
-                        <user user="user12"/>
-                        <user user="user13"/>
-                        <user user="user14"/>
-                        <user user="user15"/>
-                    </users>
+
                 </Group>
             </groups>
         </Project>
