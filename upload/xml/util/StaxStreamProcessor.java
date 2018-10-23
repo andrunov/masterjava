@@ -1,4 +1,4 @@
-package ru.javaops.masterjava.xml.util;
+package util;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;

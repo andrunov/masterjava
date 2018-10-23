@@ -1,4 +1,4 @@
-package ru.javaops.masterjava.xml.util;
+package util;
 
 import com.google.common.io.Resources;
 import org.junit.Test;

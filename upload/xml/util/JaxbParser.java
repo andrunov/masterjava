@@ -1,6 +1,7 @@
-package ru.javaops.masterjava.xml.util;
+package util;
 
 import org.xml.sax.SAXException;
+import util.JaxbMarshaller;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

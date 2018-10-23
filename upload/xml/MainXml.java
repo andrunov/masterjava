@@ -1,17 +1,15 @@
-package ru.javaops.masterjava;
-
 import com.google.common.base.Splitter;
 import com.google.common.io.Resources;
 import j2html.tags.ContainerTag;
 import one.util.streamex.StreamEx;
-import ru.javaops.masterjava.xml.schema.ObjectFactory;
-import ru.javaops.masterjava.xml.schema.Payload;
-import ru.javaops.masterjava.xml.schema.Project;
-import ru.javaops.masterjava.xml.schema.User;
-import ru.javaops.masterjava.xml.util.JaxbParser;
-import ru.javaops.masterjava.xml.util.Schemas;
-import ru.javaops.masterjava.xml.util.StaxStreamProcessor;
-import ru.javaops.masterjava.xml.util.XsltProcessor;
+import schema.ObjectFactory;
+import schema.Payload;
+import schema.Project;
+import schema.User;
+import util.JaxbParser;
+import util.Schemas;
+import util.StaxStreamProcessor;
+import util.XsltProcessor;
 
 import javax.xml.stream.events.XMLEvent;
 import java.io.InputStream;
@@ -24,6 +22,7 @@ import java.util.stream.Collectors;
 
 import static com.google.common.base.Strings.nullToEmpty;
 import static j2html.TagCreator.*;
+
 
 public class MainXml {
 

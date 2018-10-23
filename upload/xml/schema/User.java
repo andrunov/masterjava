@@ -1,10 +1,8 @@
-
-package ru.javaops.masterjava.xml.schema;
+package schema;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * <p>Java class for anonymous complex type.

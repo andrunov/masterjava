@@ -1,12 +1,11 @@
 
-package ru.javaops.masterjava.xml.schema;
+package schema;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * <p>Java class for anonymous complex type.
