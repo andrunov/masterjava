@@ -14,6 +14,9 @@
     <groupId>ru.javaops</groupId>
     <artifactId>parent-web</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Parent-web</name>
+
 
 
 </project>

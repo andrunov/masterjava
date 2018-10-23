@@ -1,4 +1,4 @@
-package ru.javaops.masterjava.matrix;
+package benchmark;
 
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
@@ -6,6 +6,7 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.openjdk.jmh.runner.options.TimeValue;
+import utils.MatrixUtil;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -48,12 +49,12 @@ public class MatrixBenchmark {
         new Runner(options).run();
     }
 
-    //    @Benchmark
+    //    @benchmark
     public int[][] singleThreadMultiplyOpt() throws Exception {
         return MatrixUtil.singleThreadMultiplyOpt(matrixA, matrixB);
     }
 
-    //    @Benchmark
+    //    @benchmark
     public int[][] singleThreadMultiplyOpt2() throws Exception {
         return MatrixUtil.singleThreadMultiplyOpt(matrixA, matrixB);
     }
@@ -63,7 +64,7 @@ public class MatrixBenchmark {
         return MatrixUtil.concurrentMultiplyStreams(matrixA, matrixB, threadNumber);
     }
 
-    //    @Benchmark
+    //    @benchmark
     public int[][] concurrentMultiply() throws Exception {
         return MatrixUtil.concurrentMultiply(matrixA, matrixB, executor);
     }

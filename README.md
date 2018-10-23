@@ -93,8 +93,8 @@
 Вычекать этот проект:
 ```git clone  https://github.com/JavaOPs/masterjava.git```
 
-- Применить <a href="https://habrahabr.ru/post/114797/">оптимизацию</a> к MatrixUtil.singleThreadMultiply
-- Реализовать метод `MatrixUtil.concurrentMultiply`, позволяющий многопоточно <a href="https://ru.wikipedia.org/wiki/Умножение_матриц">перемножать квадратные матрицы N*N</a>.
+- Применить <a href="https://habrahabr.ru/post/114797/">оптимизацию</a> к utils.MatrixUtil.singleThreadMultiply
+- Реализовать метод `utils.MatrixUtil.concurrentMultiply`, позволяющий многопоточно <a href="https://ru.wikipedia.org/wiki/Умножение_матриц">перемножать квадратные матрицы N*N</a>.
 - Количество дочерних потоков ограничено `MainMatrix.THREAD_NUMBER`.
 - Добиться того, чтобы на матрице 1000*1000 многопоточная реализация была быстрее однопоточной
 
@@ -104,10 +104,10 @@
 - 2: у меня разница между 4 и 1000 тасками по времени незаметна, поэтому делайте просто и не делайте сложно
 - 3: наконец: можно не считать значение элемента результирующей матрицы C за раз, а накапливать (`concurrentMultiply3`). Тогда трансформация B не нужна. Мои результаты:
 ```
-Benchmark                             (matrixSize)  Mode  Cnt    Score    Error  Units
-MatrixBenchmark.singleThreadMultiplyOpt       1000    ss  100  837,867 ± 25,530  ms/op
-MatrixBenchmark.concurrentMultiply2           1000    ss  100  394,294 ± 21,657  ms/op
-MatrixBenchmark.concurrentMultiply3           1000    ss  100  186,827 ± 11,882  ms/op
+benchmark                             (matrixSize)  Mode  Cnt    Score    Error  Units
+benchmark.MatrixBenchmark.singleThreadMultiplyOpt       1000    ss  100  837,867 ± 25,530  ms/op
+benchmark.MatrixBenchmark.concurrentMultiply2           1000    ss  100  394,294 ± 21,657  ms/op
+benchmark.MatrixBenchmark.concurrentMultiply3           1000    ss  100  186,827 ± 11,882  ms/op
 ```
 -----
 # Программа проекта
