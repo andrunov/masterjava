@@ -1,7 +1,7 @@
-package util;
 
 import com.google.common.io.Resources;
 import org.junit.Test;
+import util.XsltProcessor;
 
 import java.io.InputStream;
 

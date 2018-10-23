@@ -1,8 +1,8 @@
-package util;
 
 import com.google.common.io.Resources;
 import org.junit.Test;
 import org.w3c.dom.NodeList;
+import util.XPathProcessor;
 
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
