@@ -1,9 +1,13 @@
 package ru.javaops.masterjava;
 
 import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableList;
 import com.google.common.io.Resources;
 import j2html.tags.ContainerTag;
 import one.util.streamex.StreamEx;
+import ru.javaops.masterjava.persist.DBIProvider;
+import ru.javaops.masterjava.persist.dao.UserDao;
+import ru.javaops.masterjava.persist.model.UserFlag;
 import ru.javaops.masterjava.xml.schema.ObjectFactory;
 import ru.javaops.masterjava.xml.schema.Payload;
 import ru.javaops.masterjava.xml.schema.Project;
@@ -16,6 +20,7 @@ import java.io.Writer;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.DriverManager;
 import java.util.*;
 
 import static com.google.common.base.Strings.nullToEmpty;
@@ -52,6 +57,29 @@ public class MainXml {
         try (Writer writer = Files.newBufferedWriter(Paths.get("out/groups.html"))) {
             writer.write(html);
         }
+
+        DBIProvider.init(() -> {
+            try {
+                Class.forName("org.postgresql.Driver");
+            } catch (ClassNotFoundException e) {
+                throw new IllegalStateException("PostgreSQL driver not found", e);
+            }
+            return DriverManager.getConnection("jdbc:postgresql://localhost:5432/masterjava", "user", "password");
+        });
+        UserDao dao = DBIProvider.getDao(UserDao.class);
+        dao.clean();
+        List<ru.javaops.masterjava.persist.model.User> usersPersist = new ArrayList<>();
+        for (User user : users){
+            ru.javaops.masterjava.persist.model.User persistUser = new ru.javaops.masterjava.persist.model.User(user.getValue(),
+                                                                                                                user.getEmail(),
+                                                                                                                UserFlag.valueOf(user.getFlag().toString().toLowerCase()));
+            usersPersist.add(persistUser);
+        }
+
+        DBIProvider.getDBI().useTransaction((conn, status) -> {
+            usersPersist.forEach(dao::insert);
+        });
+
     }
 
     private static Set<User> parseByJaxb(String projectName, URL payloadUrl) throws Exception {
