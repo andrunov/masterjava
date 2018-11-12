@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.io.Resources;
 import j2html.tags.ContainerTag;
 import one.util.streamex.StreamEx;
+import org.skife.jdbi.v2.Handle;
 import ru.javaops.masterjava.persist.DBIProvider;
 import ru.javaops.masterjava.persist.dao.UserDao;
 import ru.javaops.masterjava.persist.model.UserFlag;
@@ -76,9 +77,7 @@ public class MainXml {
             usersPersist.add(persistUser);
         }
 
-        DBIProvider.getDBI().useTransaction((conn, status) -> {
-            usersPersist.forEach(dao::insert);
-        });
+        dao.insertUsers(usersPersist);
 
     }
 

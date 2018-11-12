@@ -4,7 +4,9 @@ import com.bertoncelj.jdbi.entitymapper.EntityMapperFactory;
 import org.skife.jdbi.v2.sqlobject.*;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapperFactory;
 import ru.javaops.masterjava.persist.model.User;
+import ru.javaops.masterjava.persist.model.UserFlag;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RegisterMapperFactory(EntityMapperFactory.class)
@@ -19,6 +21,25 @@ public abstract class UserDao implements AbstractDao {
         }
         return user;
     }
+
+    public void insertUsers(List<User> users) {
+        List<Integer> ids = new ArrayList<>();
+        List<String> fullNames = new ArrayList<>();
+        List<String> emails = new ArrayList<>();
+        List<UserFlag> flags = new ArrayList<>();
+        int counter = 1;
+        for (User user : users) {
+            ids.add(counter++);
+            fullNames.add(user.getFullName());
+            emails.add(user.getEmail());
+            flags.add(user.getFlag());
+        }
+        insertBatch(ids, fullNames, emails, flags);
+    }
+
+
+    @SqlBatch("INSERT INTO users (id, full_name, email, flag) VALUES (:id, :fullName, :email, CAST(:flag AS user_flag)) ")
+    abstract void insertBatch(@Bind("id") List<Integer> ids, @Bind("fullName") List<String> fullNames, @Bind("email") List<String> emails, @Bind("flag") List<UserFlag> flags);
 
     @SqlUpdate("INSERT INTO users (full_name, email, flag) VALUES (:fullName, :email, CAST(:flag AS user_flag)) ")
     @GetGeneratedKeys
