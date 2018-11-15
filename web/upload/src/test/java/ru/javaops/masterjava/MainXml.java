@@ -1,12 +1,9 @@
 package ru.javaops.masterjava;
 
 import com.google.common.base.Splitter;
-import com.google.common.collect.ImmutableList;
 import com.google.common.io.Resources;
 import j2html.tags.ContainerTag;
 import one.util.streamex.StreamEx;
-import org.skife.jdbi.v2.Handle;
-import org.skife.jdbi.v2.sqlobject.customizers.BatchChunkSize;
 import ru.javaops.masterjava.persist.DBIProvider;
 import ru.javaops.masterjava.persist.dao.UserDao;
 import ru.javaops.masterjava.persist.model.UserFlag;
@@ -19,9 +16,6 @@ import ru.javaops.masterjava.xml.util.*;
 import javax.xml.stream.events.XMLEvent;
 import java.io.InputStream;
 import java.io.Writer;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -76,46 +70,14 @@ public class MainXml {
         List<ru.javaops.masterjava.persist.model.User> usersPersist = new ArrayList<>();
         for (User user : users){
             ru.javaops.masterjava.persist.model.User persistUser = new ru.javaops.masterjava.persist.model.User(user.getValue(),
-                                                                                                                user.getEmail(),
+                                                                                                               user.getEmail(),
                                                                                                                 UserFlag.valueOf(user.getFlag().toString().toLowerCase()));
             usersPersist.add(persistUser);
         }
 
         int batchSize = 5;
 
-
-        Method[] methods = UserDao.class.getDeclaredMethods();
-        for (Method method : methods){
-            if (method.getName().equals("insertBatch")) {
-                method.setAccessible(true);
-
-                Annotation[] annotations = method.getDeclaredAnnotations();
-
-                Annotation newAnnotation = new Annotation() {
-                    @Override
-                    public Class<? extends Annotation> annotationType() {
-                        return BatchChunkSize.class;
-                    }
-
-                    int value = batchSize;
-                };
-
-                int index = 0;
-                for (Annotation annotation : annotations){
-                    if (annotation.annotationType() == BatchChunkSize.class){
-                        annotations[index] = newAnnotation;
-                    }
-                    index++;
-                }
-
-                for (Annotation annotation : annotations){
-                    System.out.println("+++++++++++" + annotation);
-                }
-            }
-        }
-
-
-        dao.insertUsers(usersPersist);
+        dao.insertUsers(usersPersist, 5);
 
     }
 

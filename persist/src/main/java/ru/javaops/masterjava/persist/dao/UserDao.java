@@ -23,7 +23,7 @@ public abstract class UserDao implements AbstractDao {
         return user;
     }
 
-    public void insertUsers(List<User> users) {
+    public void insertUsers(List<User> users, int chunkSize) {
         List<Integer> ids = new ArrayList<>();
         List<String> fullNames = new ArrayList<>();
         List<String> emails = new ArrayList<>();
@@ -35,13 +35,12 @@ public abstract class UserDao implements AbstractDao {
             emails.add(user.getEmail());
             flags.add(user.getFlag());
         }
-        insertBatch(ids, fullNames, emails, flags);
+        insertBatch(chunkSize ,ids, fullNames, emails, flags);
     }
 
 
     @SqlBatch("INSERT INTO users (id, full_name, email, flag) VALUES (:id, :fullName, :email, CAST(:flag AS user_flag)) ")
-    @BatchChunkSize(1000)
-    abstract void insertBatch(@Bind("id") List<Integer> ids, @Bind("fullName") List<String> fullNames, @Bind("email") List<String> emails, @Bind("flag") List<UserFlag> flags);
+    abstract void insertBatch(@BatchChunkSize int chunkSize ,@Bind("id") List<Integer> ids, @Bind("fullName") List<String> fullNames, @Bind("email") List<String> emails, @Bind("flag") List<UserFlag> flags);
 
     @SqlUpdate("INSERT INTO users (full_name, email, flag) VALUES (:fullName, :email, CAST(:flag AS user_flag)) ")
     @GetGeneratedKeys

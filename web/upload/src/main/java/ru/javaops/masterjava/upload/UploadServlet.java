@@ -1,6 +1,8 @@
 package ru.javaops.masterjava.upload;
 
 import org.thymeleaf.context.WebContext;
+import ru.javaops.masterjava.persist.DBIProvider;
+import ru.javaops.masterjava.persist.dao.UserDao;
 import ru.javaops.masterjava.persist.model.User;
 
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.DriverManager;
 import java.util.List;
 
 import static ru.javaops.masterjava.common.web.ThymeleafListener.engine;
@@ -40,12 +43,30 @@ public class UploadServlet extends HttpServlet {
             }
             try (InputStream is = filePart.getInputStream()) {
                 List<User> users = userProcessor.process(is);
+
                 webContext.setVariable("users", users);
                 engine.process("result", webContext, resp.getWriter());
+
+                DBIProvider.init(() -> {
+                    try {
+                        Class.forName("org.postgresql.Driver");
+                    } catch (ClassNotFoundException e) {
+                        throw new IllegalStateException("PostgreSQL driver not found", e);
+                    }
+                    return DriverManager.getConnection("jdbc:postgresql://localhost:5432/masterjava", "user", "password");
+                });
+                UserDao dao = DBIProvider.getDao(UserDao.class);
+                dao.clean();
+                String chunkPart = req.getParameter("chunkSize");
+                int chunkSize = Integer.valueOf(chunkPart);
+
+                dao.insertUsers(users, chunkSize);
             }
         } catch (Exception e) {
             webContext.setVariable("exception", e);
             engine.process("exception", webContext, resp.getWriter());
         }
     }
+
+
 }
