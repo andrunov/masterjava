@@ -36,7 +36,7 @@ public abstract class CityDao implements AbstractDao {
     @GetGeneratedKeys
     abstract int insertGeneratedId(@BindBean City city);
 
-    @SqlUpdate("INSERT INTO cities (id, city_name, city_code) VALUES (:id, :cityName, cityCode)")
+    @SqlUpdate("INSERT INTO cities (id, city_name, city_code) VALUES (:id, :cityName, :cityCode)")
     abstract void insertWitId(@BindBean City city);
 
     @SqlQuery("SELECT * FROM cities ORDER BY city_name LIMIT :it")

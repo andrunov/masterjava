@@ -31,12 +31,7 @@ public class CityDaoTest extends AbstractDaoTest<CityDao>{
         Assert.assertEquals(CityTestData.FIST4_CITIES, cities);
     }
 
-    @Test
-    public void getWithLimit1() {
-        List<City> cities = dao.getWithLimit(4);
-        Assert.assertEquals(CityTestData.FIST4_CITIES, cities);
-    }
-/*
+
     @Test
     public void insertBatch() throws Exception {
        dao.clean();
@@ -50,5 +45,5 @@ public class CityDaoTest extends AbstractDaoTest<CityDao>{
         int seq2 = dao.getSeqAndSkip(1);
         Assert.assertEquals(4, seq2 - seq1);
     }
-    */
+
 }
