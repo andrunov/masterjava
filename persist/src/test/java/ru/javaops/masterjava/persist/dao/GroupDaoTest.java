@@ -27,8 +27,8 @@ public class GroupDaoTest extends AbstractDaoTest<GroupDao> {
 
     @Test
     public void getWithLimit() {
-        List<Group> users = dao.getWithLimit(5);
-        Assert.assertEquals(GroupTestData.FIST4_GROUPS, users);
+        List<Group> groups = dao.getWithLimit(5);
+        Assert.assertEquals(GroupTestData.FIST4_GROUPS, groups);
     }
 
     @Test
