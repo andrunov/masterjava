@@ -8,7 +8,9 @@ import one.util.streamex.StreamEx;
 import ru.javaops.masterjava.config.Configs;
 import ru.javaops.masterjava.persist.DBIProvider;
 import ru.javaops.masterjava.persist.dao.CityDao;
+import ru.javaops.masterjava.persist.dao.UserDao;
 import ru.javaops.masterjava.persist.model.City;
+import ru.javaops.masterjava.persist.model.UserFlag;
 import ru.javaops.masterjava.xml.schema.*;
 import ru.javaops.masterjava.xml.util.*;
 
@@ -94,9 +96,21 @@ public class MainXml {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid project name '" + projectName + '\''));
 
         final Set<Project.Group> groups = new HashSet<>(project.getGroup());  // identity compare
-        return StreamEx.of(payload.getUsers().getUser())
+        Set<User> users = StreamEx.of(payload.getUsers().getUser())
                 .filter(u -> !Collections.disjoint(groups, u.getGroupRefs()))
                 .toCollection(() -> new TreeSet<>(USER_COMPARATOR));
+
+        List<ru.javaops.masterjava.persist.model.User> persistUsers = new ArrayList<>();
+        for (User user : users) {
+            ru.javaops.masterjava.persist.model.User pUser = new ru.javaops.masterjava.persist.model.User(user.getValue(),user.getEmail(), UserFlag.valueOf(user.getFlag().value()));
+            persistUsers.add(pUser);
+        }
+        UserDao userDao = DBIProvider.getDao(UserDao.class);
+        DBIProvider.getDBI().useTransaction((conn, status) -> {
+            persistUsers.forEach(userDao::insert);
+        });
+
+        return users;
 
     }
 

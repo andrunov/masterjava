@@ -15,6 +15,7 @@ CREATE TABLE cities (
   city_name TEXT NOT NULL,
   city_code TEXT NOT NULL
 );
+CREATE UNIQUE INDEX city_code_idx ON cities(city_code);
 
 CREATE TYPE user_flag AS ENUM ('active', 'deleted', 'superuser');
 CREATE SEQUENCE user_seq START 100000;
