@@ -2,12 +2,14 @@ package ru.javaops.masterjava;
 
 import com.google.common.base.Splitter;
 import com.google.common.io.Resources;
+import com.typesafe.config.Config;
 import j2html.tags.ContainerTag;
 import one.util.streamex.StreamEx;
-import ru.javaops.masterjava.xml.schema.ObjectFactory;
-import ru.javaops.masterjava.xml.schema.Payload;
-import ru.javaops.masterjava.xml.schema.Project;
-import ru.javaops.masterjava.xml.schema.User;
+import ru.javaops.masterjava.config.Configs;
+import ru.javaops.masterjava.persist.DBIProvider;
+import ru.javaops.masterjava.persist.dao.CityDao;
+import ru.javaops.masterjava.persist.model.City;
+import ru.javaops.masterjava.xml.schema.*;
 import ru.javaops.masterjava.xml.util.*;
 
 import javax.xml.stream.events.XMLEvent;
@@ -16,6 +18,7 @@ import java.io.Writer;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.DriverManager;
 import java.util.*;
 
 import static com.google.common.base.Strings.nullToEmpty;
@@ -63,6 +66,28 @@ public class MainXml {
             payload = unmarshaller.unmarshal(is);
         }
 
+
+        List<CityType> cityTypes = (payload.getCities().getCity());
+        List<City> cities = new ArrayList<>();
+        for (CityType cityType : cityTypes) {
+            City city = new City(cityType.getValue(),cityType.getId());
+            cities.add(city);
+        }
+
+        Config db = Configs.getConfig("persist.conf","db");
+        DBIProvider.init(() -> {
+            try {
+                Class.forName("org.postgresql.Driver");
+            } catch (ClassNotFoundException e) {
+                throw new IllegalStateException("PostgreSQL driver not found", e);
+            }
+            return DriverManager.getConnection(db.getString("url"), db.getString("user"), db.getString("password"));
+        });
+        CityDao dao = DBIProvider.getDao(CityDao.class);
+        DBIProvider.getDBI().useTransaction((conn, status) -> {
+            cities.forEach(dao::insert);
+        });
+
         Project project = StreamEx.of(payload.getProjects().getProject())
                 .filter(p -> p.getName().equals(projectName))
                 .findAny()
@@ -72,6 +97,7 @@ public class MainXml {
         return StreamEx.of(payload.getUsers().getUser())
                 .filter(u -> !Collections.disjoint(groups, u.getGroupRefs()))
                 .toCollection(() -> new TreeSet<>(USER_COMPARATOR));
+
     }
 
     private static Set<User> processByStax(String projectName, URL payloadUrl) throws Exception {
