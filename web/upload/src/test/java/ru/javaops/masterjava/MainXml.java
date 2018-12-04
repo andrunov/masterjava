@@ -102,7 +102,11 @@ public class MainXml {
 
         List<ru.javaops.masterjava.persist.model.User> persistUsers = new ArrayList<>();
         for (User user : users) {
-            ru.javaops.masterjava.persist.model.User pUser = new ru.javaops.masterjava.persist.model.User(user.getValue(),user.getEmail(), UserFlag.valueOf(user.getFlag().value()));
+            ru.javaops.masterjava.persist.model.User pUser = new ru.javaops.masterjava.persist.model.User(
+                                    user.getValue(),
+                                    user.getEmail(),
+                                    UserFlag.valueOf(user.getFlag().value()),
+                                    ((CityType)user.getCity()).getId());
             persistUsers.add(pUser);
         }
         UserDao userDao = DBIProvider.getDao(UserDao.class);

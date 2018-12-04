@@ -1,6 +1,8 @@
 
 package ru.javaops.masterjava.xml.schema;
 
+import ru.javaops.masterjava.persist.model.City;
+
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -175,6 +177,6 @@ public class User {
 
     @Override
     public String toString() {
-        return value + '(' + email + ')';
+        return value + '(' + email + ')' + (CityType)city;
     }
 }

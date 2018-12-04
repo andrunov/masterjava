@@ -86,4 +86,11 @@ public class CityType {
         this.id = value;
     }
 
+    @Override
+    public String toString() {
+        return "CityType{" +
+                "value='" + value + '\'' +
+                ", id='" + id + '\'' +
+                '}';
+    }
 }

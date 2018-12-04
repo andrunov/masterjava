@@ -24,8 +24,8 @@ CREATE TABLE users (
   full_name TEXT NOT NULL,
   email     TEXT NOT NULL,
   flag      user_flag NOT NULL,
-  city      integer,
-  foreign key (city) references cities(id)  ON DELETE CASCADE
+  city      TEXT,
+  foreign key (city) references cities(city_code)   ON DELETE CASCADE
 );
 CREATE UNIQUE INDEX email_idx ON users (email);
 
