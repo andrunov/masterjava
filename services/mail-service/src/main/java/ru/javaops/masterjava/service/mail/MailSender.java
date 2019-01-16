@@ -11,6 +11,9 @@ import ru.javaops.masterjava.service.mail.persist.MailCase;
 import ru.javaops.masterjava.service.mail.persist.MailCaseDao;
 import ru.javaops.web.WebStateException;
 
+import javax.mail.util.ByteArrayDataSource;
+import javax.servlet.http.Part;
+import java.io.IOException;
 import java.util.Set;
 
 @Slf4j
@@ -21,6 +24,51 @@ public class MailSender {
         val state = sendToGroup(ImmutableSet.of(to), ImmutableSet.of(), subject, body);
         return new MailResult(to.getEmail(), state);
     }
+
+    public static MailResult sendTo(Addressee to, String subject, String body, Part filePart) throws WebStateException {
+        val state = sendToGroup(ImmutableSet.of(to), ImmutableSet.of(), subject, body, filePart);
+        return new MailResult(to.getEmail(), state);
+    }
+
+    private static String sendToGroup(Set<Addressee> to, Set<Addressee> cc, String subject, String body, Part filePart) throws WebStateException {
+        log.info("Send mail to \'" + to + "\' cc \'" + cc + "\' subject \'" + subject + (log.isDebugEnabled() ? "\nbody=" + body : ""));
+        String state = MailResult.OK;
+        try {
+            val email = MailConfig.createMultipartEmail();
+            email.setSubject(subject);
+            email.setMsg(body);
+            for (Addressee addressee : to) {
+                email.addTo(addressee.getEmail(), addressee.getName());
+            }
+            for (Addressee addressee : cc) {
+                email.addCc(addressee.getEmail(), addressee.getName());
+            }
+
+            //  https://yandex.ru/blog/company/66296
+            email.setHeaders(ImmutableMap.of("List-Unsubscribe", "<mailto:masterjava@javaops.ru?subject=Unsubscribe&body=Unsubscribe>"));
+
+            try {
+                email.attach(new ByteArrayDataSource(filePart.getInputStream(), filePart.getContentType()),"attachment","file");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            email.send();
+
+        } catch (EmailException e) {
+            log.error(e.getMessage(), e);
+            state = e.getMessage();
+        }
+        try {
+            MAIL_CASE_DAO.insert(MailCase.of(to, cc, subject, state));
+        } catch (Exception e) {
+            log.error("Mail history saving exception", e);
+            throw new WebStateException(e, ExceptionType.DATA_BASE);
+        }
+        log.info("Sent with state: " + state);
+        return state;
+    }
+
 
     static String sendToGroup(Set<Addressee> to, Set<Addressee> cc, String subject, String body) throws WebStateException {
         log.info("Send mail to \'" + to + "\' cc \'" + cc + "\' subject \'" + subject + (log.isDebugEnabled() ? "\nbody=" + body : ""));
@@ -53,4 +101,6 @@ public class MailSender {
         log.info("Sent with state: " + state);
         return state;
     }
+
+
 }

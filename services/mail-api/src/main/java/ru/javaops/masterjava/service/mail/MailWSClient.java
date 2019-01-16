@@ -4,6 +4,7 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.io.Resources;
+import javax.servlet.http.Part;
 import lombok.extern.slf4j.Slf4j;
 import ru.javaops.web.WebStateException;
 import ru.javaops.web.WsClient;
@@ -41,5 +42,13 @@ public class MailWSClient {
     public static Set<Addressee> split(String addressees) {
         Iterable<String> split = Splitter.on(',').trimResults().omitEmptyStrings().split(addressees);
         return ImmutableSet.copyOf(Iterables.transform(split, Addressee::new));
+    }
+
+
+    public static GroupResult sendBulk(Set<Addressee> to, String subject, String body, Part filePart) throws WebStateException {
+        log.info("Send bulk to '" + to + "' subject '" + subject + (log.isDebugEnabled() ? "\nbody=" + body : ""));
+        GroupResult result = WS_CLIENT.getPort().sendBulk(to, subject, body, filePart);
+        log.info("Sent bulk with result: " + result);
+        return result;
     }
 }

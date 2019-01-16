@@ -6,6 +6,7 @@ import ru.javaops.masterjava.ExceptionType;
 import ru.javaops.web.WebStateException;
 import ru.javaops.web.WsClient;
 
+import javax.servlet.http.Part;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -26,6 +27,20 @@ public class MailServiceExecutor {
                 .map(addressee -> completionService.submit(() -> MailSender.sendTo(addressee, subject, body)))
                 .toList();
 
+        return getGroupResult(completionService, futures);
+    }
+
+    public static GroupResult sendBulk(Set<Addressee> addressees, String subject, String body, Part filePart) throws WebStateException {
+        final CompletionService<MailResult> completionService = new ExecutorCompletionService<>(mailExecutor);
+
+        List<Future<MailResult>> futures = StreamEx.of(addressees)
+                .map(addressee -> completionService.submit(() -> MailSender.sendTo(addressee, subject, body, filePart)))
+                .toList();
+
+        return getGroupResult(completionService, futures);
+    }
+
+    private static GroupResult getGroupResult(CompletionService<MailResult> completionService, List<Future<MailResult>> futures) throws WebStateException {
         return new Callable<GroupResult>() {
             private int success = 0;
             private List<MailResult> failed = new ArrayList<>();
@@ -69,4 +84,6 @@ public class MailServiceExecutor {
             }
         }.call();
     }
+
+
 }

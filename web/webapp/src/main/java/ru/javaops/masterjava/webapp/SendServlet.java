@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 
 @WebServlet("/send")
@@ -24,7 +25,8 @@ public class SendServlet extends HttpServlet {
             String users = req.getParameter("users");
             String subject = req.getParameter("subject");
             String body = req.getParameter("body");
-            GroupResult groupResult = MailWSClient.sendBulk(MailWSClient.split(users), subject, body);
+            Part filePart = req.getPart("fileToUpload");
+            GroupResult groupResult = MailWSClient.sendBulk(MailWSClient.split(users), subject, body, filePart);
             result = groupResult.toString();
             log.info("Processing finished with result: {}", result);
         } catch (Exception e) {
