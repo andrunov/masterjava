@@ -34,6 +34,7 @@
         </tbody>
     </table>
     <hr/>
+    <form action="" method="post" enctype="multipart/form-data">
     <p>
         <input id="subject" placeholder="subject" size="30">
     </p>
@@ -44,8 +45,9 @@
             <input type="file" name="file" id="file" required><br/>
         </p>
    <p>
-        <button type="button" onclick="send()">Send</button>
+        <button type="submit" onclick="send()">Send</button>
     </p>
+    </form>
     <pre id="result"></pre>
 </section>
 <script type="text/javascript">
@@ -55,7 +57,15 @@
             return this.value;
         }).get();
 //        https://stackoverflow.com/a/22213543/548473
-/*
+
+        $.post("send", "users=" + users + "&subject=" + $("#subject").val() + "&body=" + $("#body").val())
+            .done(function (result) {
+                $('#result').html(result);
+            })
+            .fail(function (result) {
+                $('#result').html(result);
+            });
+
         var data = new FormData();
         jQuery.each(jQuery('#file')[0].files, function(i, file) {
             data.append('file-'+i, file);
@@ -72,15 +82,6 @@
                 alert(data);
             }
         });
-*/
-        $.post("send", "users=" + users + "&subject=" + $("#subject").val() + "&body=" + $("#body").val())
-            .done(function (result) {
-                $('#result').html(result);
-            })
-            .fail(function (result) {
-                $('#result').html(result);
-            });
-
 
     }
 </script>
