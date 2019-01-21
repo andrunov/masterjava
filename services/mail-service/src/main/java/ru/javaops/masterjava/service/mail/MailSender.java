@@ -47,7 +47,7 @@ public class MailSender {
 
             //  https://yandex.ru/blog/company/66296
             email.setHeaders(ImmutableMap.of("List-Unsubscribe", "<mailto:masterjava@javaops.ru?subject=Unsubscribe&body=Unsubscribe>"));
-            email.attach(dataHandler.getDataSource(),"attachment","file");
+            email.attach(dataHandler.getDataSource(), "attach.jpg", dataHandler.getContentType());
             email.send();
 
         } catch (EmailException e) {

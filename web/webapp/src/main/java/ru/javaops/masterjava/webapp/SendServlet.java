@@ -7,6 +7,7 @@ import ru.javaops.masterjava.service.mail.util.InputStreamDataSource;
 
 import javax.activation.DataHandler;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import java.io.IOException;
 
 @WebServlet("/send")
 @Slf4j
+@MultipartConfig
 public class SendServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
