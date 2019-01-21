@@ -11,6 +11,7 @@ import ru.javaops.masterjava.service.mail.persist.MailCase;
 import ru.javaops.masterjava.service.mail.persist.MailCaseDao;
 import ru.javaops.web.WebStateException;
 
+import javax.activation.DataHandler;
 import javax.mail.util.ByteArrayDataSource;
 import javax.servlet.http.Part;
 import java.io.IOException;
@@ -25,12 +26,12 @@ public class MailSender {
         return new MailResult(to.getEmail(), state);
     }
 
-    public static MailResult sendTo(Addressee to, String subject, String body, Part filePart) throws WebStateException {
-        val state = sendToGroup(ImmutableSet.of(to), ImmutableSet.of(), subject, body, filePart);
+    public static MailResult sendTo(Addressee to, String subject, String body, DataHandler dataHandler) throws WebStateException {
+        val state = sendToGroup(ImmutableSet.of(to), ImmutableSet.of(), subject, body, dataHandler);
         return new MailResult(to.getEmail(), state);
     }
 
-    private static String sendToGroup(Set<Addressee> to, Set<Addressee> cc, String subject, String body, Part filePart) throws WebStateException {
+    private static String sendToGroup(Set<Addressee> to, Set<Addressee> cc, String subject, String body, DataHandler dataHandler) throws WebStateException {
         log.info("Send mail to \'" + to + "\' cc \'" + cc + "\' subject \'" + subject + (log.isDebugEnabled() ? "\nbody=" + body : ""));
         String state = MailResult.OK;
         try {
@@ -46,13 +47,7 @@ public class MailSender {
 
             //  https://yandex.ru/blog/company/66296
             email.setHeaders(ImmutableMap.of("List-Unsubscribe", "<mailto:masterjava@javaops.ru?subject=Unsubscribe&body=Unsubscribe>"));
-
-            try {
-                email.attach(new ByteArrayDataSource(filePart.getInputStream(), filePart.getContentType()),"attachment","file");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+            email.attach(dataHandler.getDataSource(),"attachment","file");
             email.send();
 
         } catch (EmailException e) {

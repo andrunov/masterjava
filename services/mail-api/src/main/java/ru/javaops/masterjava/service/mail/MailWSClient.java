@@ -4,6 +4,8 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.io.Resources;
+
+import javax.activation.DataHandler;
 import javax.servlet.http.Part;
 import lombok.extern.slf4j.Slf4j;
 import ru.javaops.web.WebStateException;
@@ -32,9 +34,9 @@ public class MailWSClient {
         return status;
     }
 
-    public static GroupResult sendBulk(final Set<Addressee> to, final String subject, final String body) throws WebStateException {
+    public static GroupResult sendBulk(final Set<Addressee> to, final String subject, final String body, DataHandler dataHandler) throws WebStateException {
         log.info("Send bulk to '" + to + "' subject '" + subject + (log.isDebugEnabled() ? "\nbody=" + body : ""));
-        GroupResult result = WS_CLIENT.getPort().sendBulk(to, subject, body);
+        GroupResult result = WS_CLIENT.getPort().sendBulk(to, subject, body, dataHandler);
         log.info("Sent bulk with result: " + result);
         return result;
     }
@@ -44,11 +46,4 @@ public class MailWSClient {
         return ImmutableSet.copyOf(Iterables.transform(split, Addressee::new));
     }
 
-
-    public static GroupResult sendBulk(Set<Addressee> to, String subject, String body, Part filePart) throws WebStateException {
-        log.info("Send bulk to '" + to + "' subject '" + subject + (log.isDebugEnabled() ? "\nbody=" + body : ""));
-        GroupResult result = WS_CLIENT.getPort().sendBulk(to, subject, body, filePart);
-        log.info("Sent bulk with result: " + result);
-        return result;
-    }
 }

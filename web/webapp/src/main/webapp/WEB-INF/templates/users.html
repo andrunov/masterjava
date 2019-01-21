@@ -10,7 +10,6 @@
         crossorigin="anonymous" async>
 </script>
 <body>
-
 <section>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
@@ -34,20 +33,18 @@
         </tbody>
     </table>
     <hr/>
-    <form action="" method="post" enctype="multipart/form-data">
     <p>
         <input id="subject" placeholder="subject" size="30">
     </p>
     <p>
         <textarea id="body" placeholder="mail body" cols=75 rows=5></textarea><br/>
     </p>
-        <p>
-            <input type="file" name="file" id="file" required><br/>
-        </p>
-   <p>
-        <button type="submit" onclick="send()">Send</button>
+    <p>
+        <input id="attach" type="file">
     </p>
-    </form>
+    <p>
+        <button type="button" onclick="send()">Send</button>
+    </p>
     <pre id="result"></pre>
 </section>
 <script type="text/javascript">
@@ -56,35 +53,27 @@
         var users = $("input:checkbox:checked").map(function () {
             return this.value;
         }).get();
+
+        // https://stackoverflow.com/a/5976031/548473
+        var fd = new FormData();
+        fd.append('users', users);
+        fd.append('subject', $("#subject").val());
+        fd.append('body', $("#body").val());
+        var attach = $('#attach')[0].files[0];
+        if (attach) fd.append('attach', attach);
+
 //        https://stackoverflow.com/a/22213543/548473
-
-        $.post("send", "users=" + users + "&subject=" + $("#subject").val() + "&body=" + $("#body").val())
-            .done(function (result) {
-                $('#result').html(result);
-            })
-            .fail(function (result) {
-                $('#result').html(result);
-            });
-
-        var data = new FormData();
-        jQuery.each(jQuery('#file')[0].files, function(i, file) {
-            data.append('file-'+i, file);
-        });
-
-        jQuery.ajax({
+        $.post({
             url: 'send',
-            data: data,
-            cache: false,
+            data: fd,
             contentType: false,
-            processData: false,
-            method: 'POST',
-            success: function(data){
-                alert(data);
-            }
+            processData: false
+        }).done(function (result) {
+            $('#result').html(result);
+        }).fail(function (result) {
+            $('#result').html(result);
         });
-
     }
 </script>
-
 </body>
 </html>

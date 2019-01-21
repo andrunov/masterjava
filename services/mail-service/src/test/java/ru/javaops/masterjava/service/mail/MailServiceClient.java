@@ -23,7 +23,7 @@ public class MailServiceClient {
 
         GroupResult groupResult = mailService.sendBulk(ImmutableSet.of(
                 new Addressee("Мастер Java <masterjava@javaops.ru>"),
-                new Addressee("Bad Email <bad_email.ru>")), "Bulk mail subject", "Bulk mail body");
+                new Addressee("Bad Email <bad_email.ru>")), "Bulk mail subject", "Bulk mail body", null);
         System.out.println("\nBulk mail groupResult:\n" + groupResult);
     }
 }

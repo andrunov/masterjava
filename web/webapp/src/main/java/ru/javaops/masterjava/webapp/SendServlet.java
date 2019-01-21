@@ -3,7 +3,9 @@ package ru.javaops.masterjava.webapp;
 import lombok.extern.slf4j.Slf4j;
 import ru.javaops.masterjava.service.mail.GroupResult;
 import ru.javaops.masterjava.service.mail.MailWSClient;
+import ru.javaops.masterjava.service.mail.util.InputStreamDataSource;
 
+import javax.activation.DataHandler;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,8 +27,9 @@ public class SendServlet extends HttpServlet {
             String users = req.getParameter("users");
             String subject = req.getParameter("subject");
             String body = req.getParameter("body");
-            Part filePart = req.getPart("fileToUpload");
-            GroupResult groupResult = MailWSClient.sendBulk(MailWSClient.split(users), subject, body, filePart);
+            Part filePart = req.getPart("attach");
+            DataHandler dataHandler = new DataHandler(new InputStreamDataSource(filePart.getInputStream()));
+            GroupResult groupResult = MailWSClient.sendBulk(MailWSClient.split(users), subject, body, dataHandler);
             result = groupResult.toString();
             log.info("Processing finished with result: {}", result);
         } catch (Exception e) {
