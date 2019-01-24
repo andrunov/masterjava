@@ -30,8 +30,8 @@ public class WsClient<T> {
         this.service = Service.create(wsdlUrl, qname);
     }
 
-    public void init(String host, String endpointAddress) {
-        this.endpointAddress = HOSTS.getString(host) + endpointAddress;
+    public void init(String host, String domain, String endpointAddress) {
+        this.endpointAddress = HOSTS.getConfig(host).getString(domain) + endpointAddress;
     }
 
     //  Post is not thread-safe (http://stackoverflow.com/a/10601916/548473)
