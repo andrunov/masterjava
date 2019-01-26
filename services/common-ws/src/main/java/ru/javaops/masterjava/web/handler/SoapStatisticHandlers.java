@@ -7,19 +7,29 @@ import ru.javaops.masterjava.web.Statistics;
 @Slf4j
 public class SoapStatisticHandlers extends SoapBaseHandler {
 
-    public SoapStatisticHandlers() {
-    }
+    private static final String PAYLOAD = "PAYLOAD";
+    private static final String START_TIME = "START_TIME";
 
     @Override
     public boolean handleMessage(MessageHandlerContext context) {
-        Statistics.countSuccess(context.getMessage().getClass().getCanonicalName(), System.currentTimeMillis(), Statistics.RESULT.SUCCESS);
+        if (isOutbound(context)) {
+            count(context, Statistics.RESULT.SUCCESS);
+        } else {
+            String payload = context.getMessage().getPayloadLocalPart();
+            context.put(PAYLOAD, payload);
+            context.put(START_TIME, System.currentTimeMillis());
+        }
         return true;
     }
 
     @Override
     public boolean handleFault(MessageHandlerContext context) {
-        Statistics.countFault(context.getMessage().getClass().getCanonicalName(), System.currentTimeMillis(), Statistics.RESULT.FAIL);
+        count(context, Statistics.RESULT.FAIL);
         return true;
+    }
+
+    private void count(MessageHandlerContext context, Statistics.RESULT result) {
+        Statistics.count((String) context.get(PAYLOAD), (Long) context.get(START_TIME), result);
     }
 
 }
