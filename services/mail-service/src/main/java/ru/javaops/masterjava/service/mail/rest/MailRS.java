@@ -51,31 +51,29 @@ public class MailRS {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        Attachment attachment = new Attachment(utf8name,  new DataHandler(new ProxyDataSource() {
+        Attachment attachment = new Attachment(utf8name,  new DataHandler(new DataSource() {
             @Override
             public InputStream getInputStream() throws IOException {
                 return bodyPartEntity.getInputStream();
+            }
+
+            @Override
+            public OutputStream getOutputStream() throws IOException {
+                throw new UnsupportedOperationException("Not implemented");
+            }
+
+            @Override
+            public String getContentType() {
+                return "application/octet-stream";
+            }
+
+            @Override
+            public String getName() {
+                return "";
             }
         }));
         attachments.add(attachment);
         return MailServiceExecutor.sendBulk(MailWSClient.split(users), subject, body, attachments);
     }
 
-    public interface ProxyDataSource extends DataSource {
-
-        @Override
-        default OutputStream getOutputStream() throws IOException {
-            throw new UnsupportedOperationException("Not implemented");
-        }
-
-        @Override
-        default String getContentType() {
-            return "application/octet-stream";
-        }
-
-        @Override
-        default String getName() {
-            return "";
-        }
-    }
 }
