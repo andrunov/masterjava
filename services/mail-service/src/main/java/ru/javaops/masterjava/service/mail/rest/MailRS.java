@@ -12,8 +12,13 @@ import ru.javaops.masterjava.service.mail.MailWSClient;
 import ru.javaops.masterjava.service.mail.util.Attachments;
 import ru.javaops.masterjava.web.WebStateException;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +51,31 @@ public class MailRS {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        attachments.add(Attachments.getAttachment(utf8name, bodyPartEntity.getInputStream()));
-
+        Attachment attachment = new Attachment(utf8name,  new DataHandler(new ProxyDataSource() {
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return bodyPartEntity.getInputStream();
+            }
+        }));
+        attachments.add(attachment);
         return MailServiceExecutor.sendBulk(MailWSClient.split(users), subject, body, attachments);
+    }
+
+    public interface ProxyDataSource extends DataSource {
+
+        @Override
+        default OutputStream getOutputStream() throws IOException {
+            throw new UnsupportedOperationException("Not implemented");
+        }
+
+        @Override
+        default String getContentType() {
+            return "application/octet-stream";
+        }
+
+        @Override
+        default String getName() {
+            return "";
+        }
     }
 }

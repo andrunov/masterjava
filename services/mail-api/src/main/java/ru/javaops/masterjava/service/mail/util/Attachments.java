@@ -18,7 +18,7 @@ public class Attachments {
     //    http://stackoverflow.com/questions/2830561/how-to-convert-an-inputstream-to-a-datahandler
     //    http://stackoverflow.com/a/10783565/548473
     @AllArgsConstructor
-    private static class InputStreamDataSource implements DataSource {
+    public static class InputStreamDataSource implements DataSource {
         private InputStream inputStream;
 
         @Override
