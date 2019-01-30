@@ -3,7 +3,6 @@ package ru.javaops.masterjava.service.mail.rest;
 
 import org.glassfish.jersey.media.multipart.BodyPartEntity;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.hibernate.validator.constraints.NotBlank;
 import ru.javaops.masterjava.service.mail.Attachment;
@@ -15,9 +14,8 @@ import ru.javaops.masterjava.web.WebStateException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Path("/")
@@ -40,7 +38,15 @@ public class MailRS {
 
         List<Attachment> attachments = new ArrayList<>();
         BodyPartEntity bodyPartEntity = ((BodyPartEntity) attachBodyPart.getEntity());
-        attachments.add(Attachments.getAttachment(attachBodyPart.getContentDisposition().getFileName(), bodyPartEntity.getInputStream()));
+        String attachName = attachBodyPart.getContentDisposition().getFileName();
+//          UTF-8 encoding workaround: https://java.net/jira/browse/JERSEY-3032
+        String utf8name = null;
+        try {
+            utf8name = new String(attachName.getBytes("ISO8859_1"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        attachments.add(Attachments.getAttachment(utf8name, bodyPartEntity.getInputStream()));
 
         return MailServiceExecutor.sendBulk(MailWSClient.split(users), subject, body, attachments);
     }
