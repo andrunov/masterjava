@@ -1,12 +1,16 @@
 package ru.javaops.masterjava.service.mail.listeners;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.javaops.masterjava.service.mail.GroupResult;
+import ru.javaops.masterjava.service.mail.MailServiceExecutor;
+import ru.javaops.masterjava.service.mail.MailWSClient;
 
 import javax.jms.*;
 import javax.naming.InitialContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.util.Collections;
 
 @WebListener
 @Slf4j
@@ -16,6 +20,7 @@ public class JmsMailListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        final String[] result = new String[1];
         try {
             InitialContext initCtx = new InitialContext();
             QueueConnectionFactory connectionFactory =
@@ -30,11 +35,11 @@ public class JmsMailListener implements ServletContextListener {
                 try {
                     while (!Thread.interrupted()) {
                         Message m = receiver.receive();
-                        // TODO implement mail sending
                         if (m instanceof TextMessage) {
                             TextMessage tm = (TextMessage) m;
-                            String text = tm.getText();
-                            log.info("Received TextMessage with text '{}'", text);
+                            GroupResult groupResult = MailServiceExecutor.sendBulk(MailWSClient.split(tm.getStringProperty("users")), tm.getText(),tm.getStringProperty("body"), Collections.emptyList());
+                            result[0] = groupResult.toString();
+                            log.info("Processing finished with result: {}", result[0]);
                         }
                     }
                 } catch (Exception e) {
