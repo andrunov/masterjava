@@ -9,6 +9,8 @@ import ru.javaops.masterjava.service.mail.MailWSClient;
 import ru.javaops.masterjava.service.mail.util.Attachments;
 import ru.javaops.masterjava.service.mail.util.MailUtil;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
 import javax.jms.*;
 import javax.naming.InitialContext;
 import javax.servlet.ServletContextEvent;
@@ -16,7 +18,9 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.Part;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.OutputStream;
 import java.util.Collections;
 
 @WebListener
@@ -45,7 +49,7 @@ public class JmsMailListener implements ServletContextListener {
                         if (m instanceof ObjectMessage) {
                             ObjectMessage objectMessage = (ObjectMessage) m;
                             MailUtil mailUtil = (MailUtil) objectMessage.getObject();
-                            Attachment attachment = Attachments.getAttachment( mailUtil.getAttachmentName(), new ByteArrayInputStream(mailUtil.getAttachment()));
+                            Attachment attachment = new Attachment(mailUtil.getAttachmentName(), new DataHandler((ProxyDataSource) () -> new ByteArrayInputStream(mailUtil.getAttachment())));
                             GroupResult groupResult = MailServiceExecutor.sendBulk( mailUtil.getAddressees(),
                                                                                     mailUtil.getSubject(),
                                                                                     mailUtil.getSubject(),
@@ -75,6 +79,24 @@ public class JmsMailListener implements ServletContextListener {
         }
         if (listenerThread != null) {
             listenerThread.interrupt();
+        }
+    }
+
+    public interface ProxyDataSource extends DataSource {
+
+        @Override
+        default OutputStream getOutputStream() throws IOException {
+            throw new UnsupportedOperationException("Not implemented");
+        }
+
+        @Override
+        default String getContentType() {
+            return "application/octet-stream";
+        }
+
+        @Override
+        default String getName() {
+            return "";
         }
     }
 }
