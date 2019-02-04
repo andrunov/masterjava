@@ -1,15 +1,22 @@
 package ru.javaops.masterjava.service.mail.listeners;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.activemq.ActiveMQConnectionFactory;
+import ru.javaops.masterjava.service.mail.Attachment;
 import ru.javaops.masterjava.service.mail.GroupResult;
 import ru.javaops.masterjava.service.mail.MailServiceExecutor;
 import ru.javaops.masterjava.service.mail.MailWSClient;
+import ru.javaops.masterjava.service.mail.util.Attachments;
+import ru.javaops.masterjava.service.mail.util.MailUtil;
 
 import javax.jms.*;
 import javax.naming.InitialContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import javax.servlet.http.Part;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
 import java.util.Collections;
 
 @WebListener
@@ -23,8 +30,8 @@ public class JmsMailListener implements ServletContextListener {
         final String[] result = new String[1];
         try {
             InitialContext initCtx = new InitialContext();
-            QueueConnectionFactory connectionFactory =
-                    (QueueConnectionFactory) initCtx.lookup("java:comp/env/jms/ConnectionFactory");
+            ActiveMQConnectionFactory connectionFactory = (ActiveMQConnectionFactory) initCtx.lookup("java:comp/env/jms/ConnectionFactory");
+            connectionFactory.setTrustAllPackages(true);
             connection = connectionFactory.createQueueConnection();
             QueueSession queueSession = connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
             Queue queue = (Queue) initCtx.lookup("java:comp/env/jms/queue/MailQueue");
@@ -35,10 +42,15 @@ public class JmsMailListener implements ServletContextListener {
                 try {
                     while (!Thread.interrupted()) {
                         Message m = receiver.receive();
-                        if (m instanceof TextMessage) {
-                            TextMessage tm = (TextMessage) m;
-                            GroupResult groupResult = MailServiceExecutor.sendBulk(MailWSClient.split(tm.getStringProperty("users")), tm.getText(),tm.getStringProperty("body"), Collections.emptyList());
-                            result[0] = groupResult.toString();
+                        if (m instanceof ObjectMessage) {
+                            ObjectMessage objectMessage = (ObjectMessage) m;
+                            MailUtil mailUtil = (MailUtil) objectMessage.getObject();
+                            Attachment attachment = Attachments.getAttachment( mailUtil.getAttachmentName(), new ByteArrayInputStream(mailUtil.getAttachment()));
+                            GroupResult groupResult = MailServiceExecutor.sendBulk( mailUtil.getAddressees(),
+                                                                                    mailUtil.getSubject(),
+                                                                                    mailUtil.getSubject(),
+                                                                                    Collections.singletonList(attachment));
+                                result[0] = groupResult.toString();
                             log.info("Processing finished with result: {}", result[0]);
                         }
                     }

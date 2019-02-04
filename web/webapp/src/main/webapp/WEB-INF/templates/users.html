@@ -70,28 +70,29 @@
             return;
         }
 
-        var param;
-        if (transport === "SOAP" || transport === "REST") {
-            // https://stackoverflow.com/a/5976031/548473
-            var data = new FormData();
-            data.append('users', users);
-            data.append('subject', $("#subject").val());
-            data.append('body', $("#body").val());
-            var attach = $('#attach')[0].files[0];
-            if (attach) data.append('attach', attach);
-            param = {
-                url: (transport === "REST" ? "/mail/rest/send" : "sendSoap"),
-                data: data,
-                contentType: false,
-                processData: false
-            };
-        } else if (transport === "JMS") {
-            param = {
-                url: "sendJms",
-                data: "users=" + users + "&subject=" + $("#subject").val() + "&body=" + $("#body").val() + "&attach=" + $('#attach')[0].files[0],
-                contentType: "application/x-www-form-urlencoded"
-            };
+        var url;
+        if (transport === "SOAP") {
+            url = "sendSoap";
+        } else if (transport === "REST")  {
+            url = "/mail/rest/send";
+        } else if (transport === "JMS")  {
+            url = "sendJms";
         }
+
+
+        var data = new FormData();
+        data.append('users', users);
+        data.append('subject', $("#subject").val());
+        data.append('body', $("#body").val());
+        var attach = $('#attach')[0].files[0];
+        if (attach) data.append('attach', attach);
+        var param = {
+             url: url,
+             data: data,
+             contentType: false,
+             processData: false
+        };
+
 
 //        https://stackoverflow.com/a/22213543/548473
         $.post(param).done(function (result) {
